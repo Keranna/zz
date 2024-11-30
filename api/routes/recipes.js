@@ -10,17 +10,16 @@ const SPOONACULAR_BASE_URL = "https://api.spoonacular.com/recipes/complexSearch"
 
 router.get("/", async (req, res) => {
   try {
-    const { number } = req.query;
+    const { query } = req.query;
 
     const params = {
       apiKey: SPOONACULAR_API_KEY,
-      number: number || 10,
+      query: query || "", // Ajout du paramètre de recherche
+      //number: number || 10,
     };
 
-    const requestUrl = `${SPOONACULAR_BASE_URL}?${new URLSearchParams(params).toString()}`;
-    console.log('URL complète : ', requestUrl);
-
     const response = await axios.get(SPOONACULAR_BASE_URL, { params });
+
     if (response.data.results.length > 0) {
       res.status(200).json({
         status: "success",

@@ -9,10 +9,10 @@ const router = useRouter();
 
 // Handle form submission
 const handleSearch = async (e) => {
-e.preventDefault(); // Prevent page reload
-if (searchQuery.trim() !== "") {
-router.push(`/result?query=${searchQuery}`); // Navigate to search page with query
-}
+  e.preventDefault();
+  if (searchQuery.trim() !== "") {
+    router.push(`/recipes?query=${searchQuery.trim()}`); // Rediriger vers la page de recherche
+  }
 };
   return (
     <header class="bg-white">
