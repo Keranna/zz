@@ -1,6 +1,19 @@
 import Link from 'next/link';
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Header() {
+
+  const [searchQuery, setSearchQuery] = useState("");
+const router = useRouter();
+
+// Handle form submission
+const handleSearch = async (e) => {
+e.preventDefault(); // Prevent page reload
+if (searchQuery.trim() !== "") {
+router.push(`/result?query=${searchQuery}`); // Navigate to search page with query
+}
+};
   return (
     <header class="bg-white">
   <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -26,6 +39,23 @@ export default function Header() {
       <a href="/contacts" class="text-sm/6 font-semibold text-gray-900">Contacts</a>
       <a href="/recipes" class="text-sm/6 font-semibold text-gray-900">Recettes</a>
     </div>
+    <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+  <form onSubmit={handleSearch} className="flex space-x-2 ml-4"> {/* Ajout de `ml-4` */}
+    <input
+      type="text"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      placeholder="Search..."
+      className="rounded-md border px-2 py-1"
+    />
+    <button
+      type="submit"
+      className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+    >
+      Search
+    </button>
+  </form>
+</div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
       <a href="#" class="text-sm/6 font-semibold text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
     </div>
@@ -56,6 +86,23 @@ export default function Header() {
             <a href="/contacts" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Contacts</a>
             <a href="/recipes" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Recettes</a>
           </div>
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+  <form onSubmit={handleSearch} className="flex space-x-2 ml-4"> {/* Ajout de `ml-4` */}
+    <input
+      type="text"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      placeholder="Search..."
+      className="rounded-md border px-2 py-1"
+    />
+    <button
+      type="submit"
+      className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+    >
+      Search
+    </button>
+  </form>
+</div>
           <div class="py-6">
             <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Log in</a>
           </div>
@@ -67,15 +114,3 @@ export default function Header() {
     
   );
 }
-/*<header>
-      <h1>My Blog</h1>
-      <nav>
-        <Link href="/">Home</Link>
-        <Link href="/about">About</Link>
-        <Link href="/contacts">Contacts</Link>
-        <Link href="/recipes">Recettes</Link>
-      </nav>
-  
-    
-    
-    */

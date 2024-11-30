@@ -1,4 +1,3 @@
-
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");  // Importation du middleware CORS
@@ -45,4 +44,3 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
-
