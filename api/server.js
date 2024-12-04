@@ -1,37 +1,20 @@
-/*require("dotenv").config();
-const express = require("express");
-const recipesRouter = require("./routes/recipes");
-
-const app = express();
-const PORT = process.env.PORT || 4000;
-
-// Middleware pour les JSON
-app.use(express.json());
-
-// Routes
-app.use("/recipes", recipesRouter);
-
-// Démarrer le serveur
-app.listen(PORT, () => {
-  console.log(`API server running at http://localhost:${PORT}`);
-});
-
-*/
 const express = require("express");
 const cors = require("cors");
-const recipesRouter = require("./routes/recipes"); // import de votre fichier de routes
+const recipeRouter = require("./routes/recipe"); // Détails d'une recette
+const recipesRouter = require("./routes/recipes"); // Recherche des recettes
 
 const app = express();
 
-// Activer CORS pour toutes les origines (tout le monde peut accéder à votre API)
+// Middleware
 app.use(cors());
+app.use(express.json());
 
-// Si vous voulez restreindre les origines, vous pouvez passer un objet à cors comme ceci :
-// app.use(cors({ origin: 'http://localhost:3000' })); // Permet uniquement les requêtes de localhost:3000
+// Montage des routes
+app.use("/recipes", recipesRouter); // Routes pour la recherche et la liste des recettes
+app.use("/recipe", recipeRouter);  // Routes pour les détails d'une recette
 
-app.use("/recipes", recipesRouter); // Utilisation de votre route pour les recettes
-
-const PORT = 4000;
+// Démarrer le serveur
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`API server running at http://localhost:${PORT}`);
 });

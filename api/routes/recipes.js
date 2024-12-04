@@ -1,9 +1,6 @@
 const express = require("express");
 const axios = require("axios");
-const cors = require("cors");  // Importation du middleware CORS
 const router = express.Router();
-
-router.use(cors());  // Activation de CORS pour cette route uniquement (pour `/recipes`)
 
 const SPOONACULAR_API_KEY = "a5a7ded5890e4d2d85d017f368d8f82e";
 const SPOONACULAR_BASE_URL = "https://api.spoonacular.com/recipes/complexSearch";
@@ -12,27 +9,15 @@ router.get("/", async (req, res) => {
   try {
     const { query } = req.query;
 
-    const params = {
-      apiKey: SPOONACULAR_API_KEY,
-      query: query || "", // Ajout du paramètre de recherche
-      //number: number || 10,
-    };
+    const response = await axios.get(SPOONACULAR_BASE_URL, {
+      params: { apiKey: SPOONACULAR_API_KEY, query },
+    });
 
-    const response = await axios.get(SPOONACULAR_BASE_URL, { params });
-
-    if (response.data.results.length > 0) {
-      res.status(200).json({
-        status: "success",
-        message: "Recettes trouvées",
-        data: response.data.results,
-      });
-    } else {
-      res.status(200).json({
-        status: "success",
-        message: "Aucune recette trouvée avec ces critères.",
-        data: [],
-      });
-    }
+    res.status(200).json({
+      status: "success",
+      message: "Recettes trouvées",
+      data: response.data.results,
+    });
   } catch (error) {
     res.status(500).json({
       status: "error",
