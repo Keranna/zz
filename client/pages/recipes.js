@@ -42,13 +42,15 @@ export default function RecipesPage() {
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {recipes.length > 0 ? (
               recipes.map((recipe) => (
-                <a key={recipe.id} href="#" className="group">
+                <a key={recipe.id} href={`/recipe?id=${recipe.id}`} className="group">
                   <img
                     src={recipe.image || "https://via.placeholder.com/150"}
                     alt={recipe.title}
                     className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]"
                   />
                   <h3 className="mt-4 text-sm text-gray-700">{recipe.title}</h3>
+                  
+                    
                 </a>
               ))
             ) : (
